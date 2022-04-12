@@ -1,0 +1,56 @@
+body {
+    background: black;
+    padding: 0px;
+    margin: 0px;
+}
+div#player {
+    width: 100vw;
+    height: 100vw;
+    background: black;
+    margin: 5vh auto 0px auto;
+    #control-sound{
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        img{
+            cursor: pointer;
+            width: 50px;
+            margin:1rem
+        }
+    }
+}
+.wave-container{
+    display:flex;
+    align-items: center;
+}
+#canvas, #canvas2{
+    transform: scaleX(0.1);
+    transition: all 1000ms ease-in;
+    border-radius: 40% 40% 0 0;
+
+}
+#canvas{
+    &.firstEffect{
+        transform: scaleX(1); 
+    }
+    &.fourthEffect{
+        transform: perspective(150px) rotateX(45deg);
+    }
+}
+#canvas2{
+    transform: scale(0.1,-1);
+    &.firstEffect{
+        transform: scale(1,-1); 
+    }
+}
+hr{
+    transition: all 3000ms ease-in;
+    width:0%;
+    background: #fff;
+    &.blue{
+        width:100%;
+        height:4px;
+        
+    }
+}
