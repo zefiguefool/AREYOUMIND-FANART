@@ -1,8 +1,8 @@
 import './style.scss';
 
 ( () => {
-let canvas,canvas2,
-    ctx,ctx2,
+let canvas,canvas2, firstCanvas, secondCanvas,
+    ctx,ctx2,ctx3,ctx4,ctx5,ctx6,ctx7,ctx8,
     source,
     context,
     analyser,
@@ -115,13 +115,34 @@ let FrameLooper = () => {
             ctx2.fillRect(bar_pos, canvas2.height, bar_width, bar_height);
         }
     }
-    else if(audio.currentTime >= 8 && audio.currentTime < 18){
-        secondEffect();
+
+    if(audio.currentTime >= 7 && audio.currentTime < 18){
+        modifySampleEqualizerCanvas(ctx, ctx2, 'canvas', 'canvas2', 0.3, "#ffffff", "#ffffff", 16, 32, 8, 1.5 )
     }
-    else if(audio.currentTime >= 18){
-        thirdEffect();
+    if(audio.currentTime >= 18 && audio.currentTime <= 42){
+        modifySampleEqualizerCanvas(ctx, ctx2, 'canvas', 'canvas2', 0.3, "#ffffff", "#ffffff", 8, 16, 4, 2)
     }
-    
+    if(audio.currentTime >= 26 && audio.currentTime <= 44){
+        document.getElementById('couple-container-one').classList.add("withHalf");
+        modifySampleEqualizerCanvas(ctx3, ctx4, 'canvas3', 'canvas4', 0.3, "#ffffff", "#ffffff", 8, 16, 4, 2)
+    }
+    if(audio.currentTime >= 34 && audio.currentTime <= 46){
+        document.getElementById('couple-container-three').classList.add("seventhEffect");
+        modifySampleEqualizerCanvas(ctx5, ctx6, 'canvas5', 'canvas6', 1,  "#ffffff", "#ffffff",2, 8, 4, 4)
+    }
+    if(audio.currentTime >= 38){
+        document.getElementById('couple-container-four').classList.add("eighthEffect");
+        modifySampleEqualizerCanvas(ctx7, ctx8, 'canvas7', 'canvas8', 1,  "#ffffff", "#ffffff",2, 8, 4, 4)
+    }
+    if(audio.currentTime > 42){
+        modifySampleEqualizerCanvas(ctx, ctx2, 'canvas', 'canvas2', 0.3, "#0b73c5", "#0b73c5", 8, 16, 4, 2)
+    }
+    if(audio.currentTime > 44){
+        modifySampleEqualizerCanvas(ctx3, ctx4, 'canvas3', 'canvas4', 0.3, "#c9d547", "#c9d547", 8, 16, 4, 2)
+    }
+    if(audio.currentTime >= 46){
+        modifySampleEqualizerCanvas(ctx5, ctx6, 'canvas5', 'canvas6', 1,  "#fe0000", "#fe0000",2, 8, 4, 4)
+    }
 }
 
 let firstEffect = () => {
@@ -130,47 +151,94 @@ let firstEffect = () => {
 
 }
 
-let secondEffect = () => {
-        console.log('second effet')
-        ctx.clearRect(0, 0, canvas.width, canvas.height);
-        ctx2.clearRect(0, 0, canvas2.width, canvas2.height);
-        ctx.fillStyle = "#ffffff";
-        ctx2.fillStyle = "#ffffff";
-        bar_count = window.innerWidth / 16;
-        for (var i = 0; i < bar_count; i++) {
-            bar_pos = i * 32;
-            bar_width = 8;
-            bar_height = -(fbc_array[i] / 1.5 );
-
-            ctx.fillRect(bar_pos, canvas.height, bar_width, bar_height);
-            ctx2.fillRect(bar_pos, canvas2.height, bar_width, bar_height);
-        }
- 
+let postFirstEffect = () => {
+    document.getElementById('canvas').classList.add("vanish");
+    document.getElementById('canvas2').classList.add("vanish");
 }
 
-let thirdEffect = () => {
-    console.log('third effet')
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
-    ctx2.clearRect(0, 0, canvas2.width, canvas2.height);
-    ctx.fillStyle = "#ffffff";
-    ctx2.fillStyle = "#ffffff";
-    bar_count = window.innerWidth / 8;
-    for (var i = 0; i < bar_count; i++) {
-        bar_pos = i * 16;
-            bar_width = 4;
-            bar_height = -(fbc_array[i]);
+let preSecondEffect = () => {
+    document.getElementById('canvas').classList.remove("vanish");
+    document.getElementById('canvas2').classList.remove("vanish");
 
-        ctx.fillRect(bar_pos, canvas.height, bar_width, bar_height);
-        ctx2.fillRect(bar_pos, canvas2.height, bar_width, bar_height);
-    }
+}
+ 
+let modifySampleEqualizerCanvas = (firstCtx, secondCtx, firstCanvasId, secondCanvasId, radioCanvasHeight, color1, color2, bar_sample, bar_posi, bar_width, ratioBarHeight ) =>{
 
+    firstCanvas = document.getElementById(firstCanvasId);
+    secondCanvas = document.getElementById(secondCanvasId);
+
+    firstCanvas.width = window.innerWidth;
+    firstCanvas.height = window.innerHeight * radioCanvasHeight;
+    secondCanvas.width = window.innerWidth;
+    secondCanvas.height = window.innerHeight * radioCanvasHeight;
+    
+    firstCtx = firstCanvas.getContext("2d");
+    secondCtx = secondCanvas.getContext("2d");
+
+    firstCanvas.height = window.innerHeight * 0.30;
+    secondCanvas.height = window.innerHeight * 0.30;
+
+    firstCtx.clearRect(0, 0, firstCanvas.width, firstCanvas.height);
+    secondCtx.clearRect(0, 0, secondCanvas.width, secondCanvas.height);
+        firstCtx.fillStyle = color1;
+        secondCtx.fillStyle = color2;
+        bar_count = window.innerWidth / bar_sample;
+        for (var i = 0; i < bar_count; i++) {
+            bar_pos = i * bar_posi;
+            bar_width = bar_width;
+            bar_height = -(fbc_array[i] / ratioBarHeight );
+
+            firstCtx.fillRect(bar_pos, firstCanvas.height, bar_width, bar_height);
+            secondCtx.fillRect(bar_pos, secondCanvas.height, bar_width, bar_height);
+        }
+}
+
+
+let postSecondEffect = () => {
+    document.getElementById('canvas').classList.add("vanish");
+    document.getElementById('canvas2').classList.add("vanish");
+}
+
+let preThirdEffect = () => {
+    document.getElementById('canvas').classList.remove("vanish");
+    document.getElementById('canvas2').classList.remove("vanish");
+
+}
+
+let createCanvas = (container, idCanvas) => {
+    var canv = document.createElement('canvas');
+    canv.id = idCanvas;
+    document.body.appendChild(canv); // adds the canvas to the body element
+    document.getElementById(container).appendChild(canv); // adds the canvas to #someBox
+    document.getElementById(canv.id ).classList.add("canvas");
 }
 
 let fourthEffect = () => {
-    document.getElementById('canvas').classList.add("fourthEffect");
+    
+    document.getElementById('couple-container-two').classList.add("translateforsixthEffect");
+    document.getElementById('canvas').classList.add("reduceforsixthEffect");
+    document.getElementById('canvas2').classList.add("reduceforsixthEffect");
+    
+}
+let fifthEffect = () => {
+    
+    document.getElementById('canvas').classList.add("translateforsixthEffect");
+    document.getElementById('canvas2').classList.add("translateforsixthEffect");
+    
+}
+
+let sixthEffect = () => {
+    document.getElementById('canvas3').classList.add("sixthEffect");
+    document.getElementById('canvas4').classList.add("sixthEffect");
 }
 
 generateCanvas();
+createCanvas('couple-container-two', 'canvas3');
+createCanvas('couple-container-two', 'canvas4');
+createCanvas('couple-container-three', 'canvas5');
+createCanvas('couple-container-three', 'canvas6');
+createCanvas('couple-container-four', 'canvas7');
+createCanvas('couple-container-four', 'canvas8');
 //generateOscilloscope();
 
 document.getElementById("play").addEventListener(
@@ -185,15 +253,33 @@ document.getElementById("play").addEventListener(
             audio.play();
             FrameLooper();
             intervalId = setInterval(() => {
-                console.log(audio.currentTime);
+                //console.log(audio.currentTime);
                 if(audio.currentTime >= 2 && audio.currentTime < 3 ){
-                        firstEffect();
+                    firstEffect();
                 }
-                else if(audio.currentTime > 10 && audio.currentTime < 11){
+                if(audio.currentTime >= 6 && audio.currentTime < 7 ){
+                    postFirstEffect();
+                }
+                if(audio.currentTime >= 7 && audio.currentTime < 8 ){
+                    preSecondEffect();
+                }
+                else if(audio.currentTime > 12 && audio.currentTime < 13){
                     document.getElementById('sep-line').classList.add("blue");
                 }
-                else if(audio.currentTime > 22){
-                        fourthEffect();
+                if(audio.currentTime >= 17 && audio.currentTime < 18 ){
+                    postSecondEffect();
+                }
+                if(audio.currentTime >= 18 && audio.currentTime < 19 ){
+                    preThirdEffect();
+                }
+                else if(audio.currentTime > 22 && audio.currentTime < 23){
+                    fourthEffect();
+                }
+                else if(audio.currentTime >= 23 && audio.currentTime < 25){
+                    fifthEffect();
+                }
+                else if(audio.currentTime >= 28 && audio.currentTime < 30){
+                    sixthEffect();
                 }
             },200);
 

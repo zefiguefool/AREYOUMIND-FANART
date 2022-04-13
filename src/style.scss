@@ -8,6 +8,7 @@ div#player {
     height: 100vw;
     background: black;
     margin: 5vh auto 0px auto;
+    position: fixed;
     #control-sound{
         width: 100%;
         display: flex;
@@ -20,36 +21,149 @@ div#player {
         }
     }
 }
-.wave-container{
+#wave-container{
     display:flex;
-    align-items: center;
+    flex-direction: row;
+    align-items: top;
+    justify-items: center;
+    width: 100vw;
+    flex-wrap: wrap;
+    #couple-container-one, #couple-container-two{
+        display:flex;
+        flex-direction: column;
+        justify-content: center;
+    }
+    #couple-container-one{
+        width:100%;
+        transition: all 1000ms ease-in;
+        &.withHalf{
+            width:50%;
+            #canvas{
+                &.firstEffect{
+                    transform: scaleX(1) translateX(0);
+                }
+            }
+            #canvas2{
+                &.firstEffect{
+                    transform: scale(1,-1) translateX(0);
+                }
+
+            }
+
+        }
+    }
+    #couple-container-two{
+        width:0%;
+        &.translateforsixthEffect{
+            width:50%
+        }
+    }
+    #couple-container-three{
+        width:0%;
+        &.sixththEffect{
+            width:100%
+        }
+    }
 }
-#canvas, #canvas2{
-    transform: scaleX(0.1);
+
+#canvas, #canvas2, #canvas3, #canvas4{
+    transform: scaleX(0.3);
     transition: all 1000ms ease-in;
     border-radius: 40% 40% 0 0;
-
+}
+#canvas3{
+    width:0%;
+    &.sixthEffect{
+        width:100%;
+        transform: scaleX(1); 
+    }
+}
+#canvas4{
+    width:0%;
+    transform: scale(0.3,-1);
+}
+#canvas4{
+    &.sixthEffect{
+        width:100%;
+        transform: scale(1,-1); 
+    }
 }
 #canvas{
     &.firstEffect{
         transform: scaleX(1); 
+        &.vanish{
+            transform : scaleY(0);
+        }
+        &.reduceforsixthEffect{
+            transform: scaleX(0.5); 
+        }
+        &.translateforsixthEffect{
+            transform: scaleX(0.5) translateX(-50vw);
+        }
     }
-    &.fourthEffect{
+    &.ninethEffect{
         transform: perspective(150px) rotateX(45deg);
     }
 }
 #canvas2{
-    transform: scale(0.1,-1);
+    transform: scale(0.3,-1);
     &.firstEffect{
         transform: scale(1,-1); 
+        &.vanish{
+            transform : scaleY(0);
+        }
+        &.reduceforsixthEffect{
+            transform: scale(0.5,-1); 
+        }
+        &.translateforsixthEffect{
+            transform: scale(0.5,-1) translateX(-50vw);
+        }
     }
 }
+
+#couple-container-three, #couple-container-four{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width:0%;
+    &.seventhEffect, &.eighthEffect{
+        width:100%!important;
+        #canvas5{
+            transform: translateY(-70%) scale(1,1);
+            @media (max-width: 768px){
+                transform: translateY(-60%) scale(1,1);
+            }
+        }
+        #canvas6{
+            transform: translateY(-70%) scale(1,-1);
+            @media (max-width: 768px){
+                transform: translateY(-60%) scale(1,-1);
+            }
+        }
+        #canvas7{
+            transform: translateY(-170%) scale(1,1);
+            @media (max-width: 768px){
+                transform: translateY(-170%) scale(1,1);
+            }
+        }
+        #canvas8{
+            transform: translateY(-170%) scale(1,-1);
+            @media (max-width: 768px){
+                transform: translateY(-170%) scale(1,-1);
+            }
+        }
+    }
+}
+
+
 hr{
     transition: all 3000ms ease-in;
     width:0%;
     background: #fff;
+    margin:0;
+    border-top-width: 0;
     &.blue{
-        width:100%;
+        width:200%;
         height:4px;
         
     }
