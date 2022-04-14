@@ -5,29 +5,66 @@ body {
 }
 div#player {
     width: 100vw;
-    height: 100vw;
+    height: 100vh;
     background: black;
-    margin: 5vh auto 0px auto;
+    margin: 0 auto;
     position: fixed;
     #control-sound{
         width: 100%;
         display: flex;
         justify-content: center;
         align-items: center;
+        position: absolute;
+        z-index:1;
         img{
             cursor: pointer;
             width: 50px;
             margin:1rem
         }
     }
+    #grid{
+        width: 100vw;
+        height: 10vh;
+        position: absolute;
+        z-index: 0;
+        top:0;
+        left:0;
+        #canvas15{
+            
+        }
+    }
 }
 #wave-container{
     display:flex;
     flex-direction: row;
-    align-items: top;
+    align-items:center;
     justify-items: center;
     width: 100vw;
     flex-wrap: wrap;
+    transform-origin: center center;
+    transition: all 1000ms ease-in;
+    &.twelfthEffect{
+        transform:scale(1,4) rotate(90deg) translate(-50%, 35%);
+    }
+    &.thirteenthEffect{
+        transform:scale(0.5,1) rotate(90deg) translate(-50%, 25%);
+    }
+    @media (max-width: 768px){
+        &.nineteenthEffect{
+            transform:scale(0.5,1) rotate(90deg) translate(-100%, 35%);
+        }
+    }
+    @media (max-width: 768px){
+        &.twentyfirstEffect{
+            transform:scale(0.5,1) rotate(90deg) translate(-180%, 35%);
+        }
+    }
+    &.twentysecondEffect{
+        transform: scale(1, 1) rotate(6.5turn) translate(0%, -50%);
+        @media (max-width: 768px){
+                transform: scale(1, 1) rotate(2.5turn) translate(25%, 70%);
+        }
+    }
     #couple-container-one, #couple-container-two{
         display:flex;
         flex-direction: column;
@@ -40,12 +77,30 @@ div#player {
             width:50%;
             #canvas{
                 &.firstEffect{
-                    transform: scaleX(1) translateX(0);
+                    transform: scale(1,1) translateX(0) translateY(-60%);
+                    @media (max-width: 768px){
+                        transform: scale(1,1) translateX(0) translateY(-60%);
+                    }
+                }
+                &.thirteenthEffect{
+                    transform: scale(1,1) translateX(60%) translateY(-420%);
+                    @media (max-width: 768px){
+                        transform: scale(2,1) translateX(-90%) translateY(-50%);
+                    }
                 }
             }
             #canvas2{
                 &.firstEffect{
-                    transform: scale(1,-1) translateX(0);
+                    transform: scale(1,-1) translateX(0) translateY(60%);
+                    @media (max-width: 768px){
+                        transform: scale(1,-1) translateX(0) translateY(60%);
+                    }
+                }
+                &.thirteenthEffect{
+                    transform: scale(1,-1) translateX(60%) translateY(420%);
+                    @media (max-width: 768px){
+                        transform: scale(2,-1) translateX(-90%) translateY(50%);
+                    }
                 }
 
             }
@@ -64,107 +119,258 @@ div#player {
             width:100%
         }
     }
-}
-
-#canvas, #canvas2, #canvas3, #canvas4{
-    transform: scaleX(0.3);
-    transition: all 1000ms ease-in;
-    border-radius: 40% 40% 0 0;
-}
-#canvas3{
-    width:0%;
-    &.sixthEffect{
-        width:100%;
-        transform: scaleX(1); 
+    
+    #canvas, #canvas2, #canvas3, #canvas4{
+        transform: scaleX(0.3);
+        transition: all 1000ms ease-in;
+        border-radius: 40% 40% 0 0;
     }
-}
-#canvas4{
-    width:0%;
-    transform: scale(0.3,-1);
-}
-#canvas4{
-    &.sixthEffect{
-        width:100%;
-        transform: scale(1,-1); 
-    }
-}
-#canvas{
-    &.firstEffect{
-        transform: scaleX(1); 
-        &.vanish{
-            transform : scaleY(0);
+    #canvas3{
+        width:0%;
+        &.sixthEffect{
+            width:100%;
+            transform: scale(1,1) translateY(-60%); 
         }
-        &.reduceforsixthEffect{
-            transform: scaleX(0.5); 
-        }
-        &.translateforsixthEffect{
-            transform: scaleX(0.5) translateX(-50vw);
-        }
-    }
-    &.ninethEffect{
-        transform: perspective(150px) rotateX(45deg);
-    }
-}
-#canvas2{
-    transform: scale(0.3,-1);
-    &.firstEffect{
-        transform: scale(1,-1); 
-        &.vanish{
-            transform : scaleY(0);
-        }
-        &.reduceforsixthEffect{
-            transform: scale(0.5,-1); 
-        }
-        &.translateforsixthEffect{
-            transform: scale(0.5,-1) translateX(-50vw);
-        }
-    }
-}
-
-#couple-container-three, #couple-container-four{
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    width:0%;
-    &.seventhEffect, &.eighthEffect{
-        width:100%!important;
-        #canvas5{
-            transform: translateY(-70%) scale(1,1);
+        &.thirteenthEffect{
+            transform: scale(1,1) translateX(60%) translateY(-420%);
             @media (max-width: 768px){
-                transform: translateY(-60%) scale(1,1);
-            }
-        }
-        #canvas6{
-            transform: translateY(-70%) scale(1,-1);
-            @media (max-width: 768px){
-                transform: translateY(-60%) scale(1,-1);
-            }
-        }
-        #canvas7{
-            transform: translateY(-170%) scale(1,1);
-            @media (max-width: 768px){
-                transform: translateY(-170%) scale(1,1);
-            }
-        }
-        #canvas8{
-            transform: translateY(-170%) scale(1,-1);
-            @media (max-width: 768px){
-                transform: translateY(-170%) scale(1,-1);
+                transform: scale(2,1) translateX(-40%) translateY(-50%);
             }
         }
     }
-}
+    #canvas4{
+        width:0%;
+        transform: scale(0.3,-1);
+    }
+    #canvas4{
+        &.sixthEffect{
+            width:100%;
+            transform: scale(1,-1) translateY(60%); 
+        }
+        &.thirteenthEffect{
+            transform: scale(1,-1) translateX(60%) translateY(420%);
+            @media (max-width: 768px){
+                transform: scale(2,-1) translateX(-40%) translateY(50%);
+            }
+        }
+    }
+    #canvas{
+        &.firstEffect{
+            transform: scaleX(1); 
+            &.vanish{
+                transform : scaleY(0);
+            }
+            &.reduceforsixthEffect{
+                transform: scaleX(0.5); 
+            }
+            &.translateforsixthEffect{
+                transform: scaleX(0.5) translateX(-50vw);
+            }
+        }
+        &.ninethEffect{
+            transform: perspective(150px) rotateX(45deg);
+        }
+    }
+    #canvas2{
+        transform: scale(0.3,-1);
+        &.firstEffect{
+            transform: scale(1,-1); 
+            &.vanish{
+                transform : scaleY(0);
+            }
+            &.reduceforsixthEffect{
+                transform: scale(0.5,-1); 
+            }
+            &.translateforsixthEffect{
+                transform: scale(0.5,-1) translateX(-50vw);
+            }
+        }
+    }
 
+    #couple-container-three, #couple-container-four, #couple-container-five, #couple-container-six, #couple-container-seven{
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        width:0%;
+        &.seventhEffect {
+            width:100%!important;
+            #canvas5{
+                transform: translateY(-120%) scale(1,1);
+                @media (max-width: 768px){
+                    transform: translateY(-120%) scale(1,1);
+                }
+                &.fifteenthEffect{
+                    transition: all 3000ms ease-in;
+                    transform: translateY(140%) scale(1,1);
+                    @media (max-width: 768px){
+                        transform: translateY(-120%) translateX(-70%) scale(2,1);
+                    }
+                }
+                &.sixteenthEffect{
+                    transform:skewY(45deg) translateY(140%) scale(1,1);
+                    @media (max-width: 768px){
+                        transform: skewY(45deg) translateY(-120%) translateX(-70%) scale(2,1);
+                    }
+                }
+            }
+            #canvas6{
+                transform: translateY(-120%) scale(1,-1);
+                @media (max-width: 768px){
+                    transform: translateY(-120%) scale(1,-1);
+                }
+                &.fifteenthEffect{
+                    transition: all 3000ms ease-in;
+                    transform: translateY(140%) scale(1,-1);
+                    @media (max-width: 768px){
+                        transform: translateY(-120%) translateX(-70%) scale(2,-1);
+                    }
+                }
+                &.sixteenthEffect{
+                    transform:skewY(45deg) translateY(140%) scale(1,-1);
+                    @media (max-width: 768px){
+                        transform: skewY(45deg) translateY(-120%) translateX(-70%) scale(2,-1);
+                    }
+                }
+            }
+        }
+        &.eighthEffect {
+            width:100%!important;
+            #canvas7{
+                transform: translateY(-250%) scale(1,1);
+                @media (max-width: 768px){
+                    transform: translateY(-250%) scale(1,1);
+                }
+                &.ninthEffect{
+                    transition: all 3000ms ease-in;
+                    transform: translateY(-160%) scale(1,1);
 
-hr{
-    transition: all 3000ms ease-in;
-    width:0%;
-    background: #fff;
-    margin:0;
-    border-top-width: 0;
-    &.blue{
-        width:200%;
-        height:4px;
-        
+                }
+                &.fourteenthEffect{
+                    transform: translateY(80%) scale(1,1);
+                    @media (max-width: 768px){
+                        transform: translateY(-160%) translateX(-70%) scale(2,1);
+                    }
+                }
+            }
+            #canvas8{
+                transform: translateY(-250%) scale(1,-1);
+                @media (max-width: 768px){
+                    transform: translateY(-250%) scale(1,-1);
+                }
+                &.ninthEffect{
+                    transition: all 3000ms ease-in;
+                    transform: translateY(-160%) scale(1,-1);
+                }
+                &.fourteenthEffect{
+                    transform: translateY(80%) scale(1,-1);
+                    @media (max-width: 768px){
+                        transform: translateY(-160%) translateX(-70%) scale(2,-1);
+                    }
+                }
+            }
+        }
+        &.tenthEffect{
+            width:100%!important;
+            #canvas9{
+                transform: translateY(-440%) scale(0,0);
+                &.eleventhEffect{
+                    transition: all 3000ms ease-in;
+                    transform: translateY(-440%) scale(1,1);
+                }
+                @media (max-width: 768px){
+                    transform: translateY(-440%) scale(1,1);
+                }
+                &.fifteenthEffect{
+                    transform: translateY(-620%) scale(1,1);
+                    @media (max-width: 768px){
+                        transform: translateY(-440%) translateX(-70%) scale(2,1);
+                    }
+                }
+                &.seventeenthEffect{
+                    transform: skewY(-45deg) translateY(-620%) scale(1,1);
+                    @media (max-width: 768px){
+                        transform: skewY(-45deg) translateY(-440%) translateX(-70%) scale(2,1);
+                    }
+                }
+            }
+            #canvas10{
+                transform: translateY(-440%) scale(0,0);
+                &.eleventhEffect{
+                    transition: all 3000ms ease-in;
+                    transform: translateY(-440%) scale(1,-1);
+                }
+                @media (max-width: 768px){
+                    transform: translateY(-440%) scale(1,-1);
+                }
+                &.fifteenthEffect{
+                    transform: translateY(-620%) scale(1,-1);
+                    @media (max-width: 768px){
+                        transform: translateY(-440%) translateX(-70%) scale(2,-1);
+                    }
+                }
+                &.seventeenthEffect{
+                    transform: skewY(-45deg) translateY(-620%) scale(1,-1);
+                    @media (max-width: 768px){
+                        transform: skewY(-45deg) translateY(-440%) translateX(-70%) scale(2,-1);
+                    }
+                }
+            }
+        }
+        &.eighteenthEffect{
+            width:100%!important;
+            transition: all 3000ms ease-in;
+            #canvas11{
+                &.nineteenthEffect{
+                    transform: skewY(-45deg) translateY(-220%) scale(1,1);
+                    @media (max-width: 768px){
+                        transform: skewY(45deg) translateY(-420%) translateX(-70%) scale(2,1);
+                    }
+                }
+            }
+            #canvas12{
+                &.nineteenthEffect{
+                    transform: skewY(-45deg) translateY(-220%) scale(1,-1);
+                    @media (max-width: 768px){
+                        transform: skewY(45deg) translateY(-420%) translateX(-70%) scale(2,-1);
+                    }
+                }
+            }
+        }
+        &.twentieth{
+            width:100%!important;
+            transition: all 3000ms ease-in;
+            #canvas13{
+                &.twentyfirstEffect{
+                    transform: skewY(45deg) translateY(-1320%) scale(1,1);
+                    @media (max-width: 768px){
+                        transform: skewY(-45deg) translateY(-1040%) translateX(-70%) scale(2,1);
+                    }
+                }
+            }
+            #canvas14{
+                &.twentyfirstEffect{
+                    transform: skewY(45deg) translateY(-1320%) scale(1,-1);
+                    @media (max-width: 768px){
+                        transform: skewY(-45deg) translateY(-1040%) translateX(-70%) scale(2,-1);
+                    }
+                }
+            }
+        }
+    }
+    
+    hr{
+        transition: all 3000ms ease-in;
+        width:0%;
+        background: #fff;
+        margin:0;
+        border-top-width: 0;
+        &.blue{
+            width:200%;
+            height:4px;
+        }
+        &.withHalf{
+            width:0%;
+            height:4px;
+        }
     }
 }
