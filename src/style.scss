@@ -24,13 +24,39 @@ div#player {
     }
     #grid{
         width: 100vw;
-        height: 10vh;
+        height: 100vh;
         position: absolute;
         z-index: 0;
         top:0;
         left:0;
+        transition: all 3000ms ease-in;
+        opacity:0;
         #canvas15{
-            
+            transition: all 3000ms ease-in;
+            position:absolute;
+            z-index:1;
+            width: 100vw;
+            height: 100vh;
+        }
+        &.gridAppearance{
+            opacity:1;
+        }
+        &.colorGraphPaper{
+            background-color: #e6ddd4;
+        }
+        #canvas16{
+            position: absolute;
+            left:0;
+            top:0%;
+            transition: all 1000ms ease-in-out;
+            height:0;
+            width:100%;
+            &.appear{
+                height:100%;
+            }
+            &.bounce{
+                height:100%;
+            }
         }
     }
 }
@@ -43,29 +69,33 @@ div#player {
     flex-wrap: wrap;
     transform-origin: center center;
     transition: all 1000ms ease-in;
+    position:relative;
     &.twelfthEffect{
-        transform:scale(1,4) rotate(90deg) translate(-50%, 35%);
-    }
-    &.thirteenthEffect{
-        transform:scale(0.5,1) rotate(90deg) translate(-50%, 25%);
-    }
-    @media (max-width: 768px){
-        &.nineteenthEffect{
-            transform:scale(0.5,1) rotate(90deg) translate(-100%, 35%);
-        }
-    }
-    @media (max-width: 768px){
-        &.twentyfirstEffect{
-            transform:scale(0.5,1) rotate(90deg) translate(-180%, 35%);
-        }
-    }
-    &.twentysecondEffect{
-        transform: scale(1, 1) rotate(6.5turn) translate(0%, -50%);
+        transform:scale(1,1) rotate(90deg) translate(0, 0);
         @media (max-width: 768px){
-                transform: scale(1, 1) rotate(2.5turn) translate(25%, 70%);
+            transform:scale(0.25,2.5) rotate(90deg) translate(0, 0);  
         }
     }
-    #couple-container-one, #couple-container-two{
+    /* &.thirteenthEffect{
+        transform:scale(0.25,2) rotate(90deg) translate(0,0);
+    } */
+    /* @media (max-width: 768px){
+        &.nineteenthEffect{
+            transform:scale(0.25,2) rotate(90deg) translate(0,0);
+        }
+    }*/
+   /*  @media (max-width: 768px){
+        &.twentyfirstEffect{
+            transform:scale(0.5,2) rotate(90deg) translate(0,0);
+        }
+    } */
+    &.twentysecondEffect{
+        transform: scale(1, 1) rotate(540deg) translate(0, -25vh);
+        @media (max-width: 768px){
+                transform: scale(1, 1) rotate(540deg) translate(0, 0vh);
+        }
+    }
+    #couple-container-one/* , #couple-container-two */{
         display:flex;
         flex-direction: column;
         justify-content: center;
@@ -73,33 +103,36 @@ div#player {
     #couple-container-one{
         width:100%;
         transition: all 1000ms ease-in;
+        height: 50vh;
         &.withHalf{
-            width:50%;
+            //width:50%;
+            transform: scale(1,1) translateX(0) translateY(0%);
+            height: 25vh;
             #canvas{
                 &.firstEffect{
-                    transform: scale(1,1) translateX(0) translateY(-60%);
+                    transform: scale(1,1) translateX(0) translateY(0%);
                     @media (max-width: 768px){
-                        transform: scale(1,1) translateX(0) translateY(-60%);
+                        transform: scale(1,1) translateX(0) translateY(0%);
                     }
                 }
                 &.thirteenthEffect{
-                    transform: scale(1,1) translateX(60%) translateY(-420%);
+                    transform: scale(1,1) translateX(0%) translateY(0%);
                     @media (max-width: 768px){
-                        transform: scale(2,1) translateX(-90%) translateY(-50%);
+                        transform: scale(1,1) translateX(0%) translateY(0%);
                     }
                 }
             }
             #canvas2{
                 &.firstEffect{
-                    transform: scale(1,-1) translateX(0) translateY(60%);
+                    transform: scale(1,-1) translateX(0) translateY(0%);
                     @media (max-width: 768px){
-                        transform: scale(1,-1) translateX(0) translateY(60%);
+                        transform: scale(1,-1) translateX(0) translateY(0%);
                     }
                 }
                 &.thirteenthEffect{
-                    transform: scale(1,-1) translateX(60%) translateY(420%);
+                    transform: scale(1,-1) translateX(0%) translateY(0%);
                     @media (max-width: 768px){
-                        transform: scale(2,-1) translateX(-90%) translateY(50%);
+                        transform: scale(1,-1) translateX(0%) translateY(0%);
                     }
                 }
 
@@ -107,52 +140,10 @@ div#player {
 
         }
     }
-    #couple-container-two{
-        width:0%;
-        &.translateforsixthEffect{
-            width:50%
-        }
-    }
-    #couple-container-three{
-        width:0%;
-        &.sixththEffect{
-            width:100%
-        }
-    }
-    
-    #canvas, #canvas2, #canvas3, #canvas4{
+    #canvas, #canvas2{
         transform: scaleX(0.3);
         transition: all 1000ms ease-in;
         border-radius: 40% 40% 0 0;
-    }
-    #canvas3{
-        width:0%;
-        &.sixthEffect{
-            width:100%;
-            transform: scale(1,1) translateY(-60%); 
-        }
-        &.thirteenthEffect{
-            transform: scale(1,1) translateX(60%) translateY(-420%);
-            @media (max-width: 768px){
-                transform: scale(2,1) translateX(-40%) translateY(-50%);
-            }
-        }
-    }
-    #canvas4{
-        width:0%;
-        transform: scale(0.3,-1);
-    }
-    #canvas4{
-        &.sixthEffect{
-            width:100%;
-            transform: scale(1,-1) translateY(60%); 
-        }
-        &.thirteenthEffect{
-            transform: scale(1,-1) translateX(60%) translateY(420%);
-            @media (max-width: 768px){
-                transform: scale(2,-1) translateX(-40%) translateY(50%);
-            }
-        }
     }
     #canvas{
         &.firstEffect{
@@ -188,47 +179,49 @@ div#player {
     }
 
     #couple-container-three, #couple-container-four, #couple-container-five, #couple-container-six, #couple-container-seven{
+        height: 25vh;
         display: flex;
         flex-direction: column;
         justify-content: center;
         width:0%;
+        transform-origin: center center;
         &.seventhEffect {
             width:100%!important;
             #canvas5{
-                transform: translateY(-120%) scale(1,1);
+                transform: scale(1,1);
                 @media (max-width: 768px){
-                    transform: translateY(-120%) scale(1,1);
+                    transform: scale(1,1);
                 }
                 &.fifteenthEffect{
                     transition: all 3000ms ease-in;
-                    transform: translateY(140%) scale(1,1);
+                    transform: translateY(-25vw) scale(1,1);
                     @media (max-width: 768px){
-                        transform: translateY(-120%) translateX(-70%) scale(2,1);
+                        transform: translateY(-25vw) translateX(0%) scale(1,1);
                     }
                 }
                 &.sixteenthEffect{
-                    transform:skewY(45deg) translateY(140%) scale(1,1);
+                    transform:skewY(45deg) translateY(-25vw) scale(1,1);
                     @media (max-width: 768px){
-                        transform: skewY(45deg) translateY(-120%) translateX(-70%) scale(2,1);
+                        transform: skewY(45deg) translateY(-25vw) translateX(0%) scale(1,1);
                     }
                 }
             }
             #canvas6{
-                transform: translateY(-120%) scale(1,-1);
+                transform: scale(1,-1);
                 @media (max-width: 768px){
-                    transform: translateY(-120%) scale(1,-1);
+                    transform: scale(1,-1);
                 }
                 &.fifteenthEffect{
                     transition: all 3000ms ease-in;
-                    transform: translateY(140%) scale(1,-1);
+                    transform: translateY(-25vw) scale(1,-1);
                     @media (max-width: 768px){
-                        transform: translateY(-120%) translateX(-70%) scale(2,-1);
+                        transform: translateY(-25vw) translateX(0%) scale(1,-1);
                     }
                 }
                 &.sixteenthEffect{
-                    transform:skewY(45deg) translateY(140%) scale(1,-1);
+                    transform:skewY(45deg) translateY(-25vw) scale(1,-1);
                     @media (max-width: 768px){
-                        transform: skewY(45deg) translateY(-120%) translateX(-70%) scale(2,-1);
+                        transform: skewY(45deg) translateY(-25vw) translateX(0%) scale(1,-1);
                     }
                 }
             }
@@ -236,35 +229,38 @@ div#player {
         &.eighthEffect {
             width:100%!important;
             #canvas7{
-                transform: translateY(-250%) scale(1,1);
+                transform: scale(1,1);
                 @media (max-width: 768px){
-                    transform: translateY(-250%) scale(1,1);
+                    transform: scale(1,1);
                 }
                 &.ninthEffect{
                     transition: all 3000ms ease-in;
-                    transform: translateY(-160%) scale(1,1);
+                    transform: translateY(25vh) scale(1,1);
+                    @media (max-width: 768px){
+                        transform: translateY(25vh) scale(1,1);
+                    }
 
                 }
                 &.fourteenthEffect{
-                    transform: translateY(80%) scale(1,1);
+                    transform: translateY(0vh) scale(1,1);
                     @media (max-width: 768px){
-                        transform: translateY(-160%) translateX(-70%) scale(2,1);
+                        transform: translateY(0vh) translateX(0%) scale(1,1);
                     }
                 }
             }
             #canvas8{
-                transform: translateY(-250%) scale(1,-1);
+                transform: scale(1,-1);
                 @media (max-width: 768px){
-                    transform: translateY(-250%) scale(1,-1);
+                    transform: scale(1,-1);
                 }
                 &.ninthEffect{
                     transition: all 3000ms ease-in;
-                    transform: translateY(-160%) scale(1,-1);
+                    transform: translateY(25vh) scale(1,-1);
                 }
                 &.fourteenthEffect{
-                    transform: translateY(80%) scale(1,-1);
+                    transform: translateY(0vh) scale(1,-1);
                     @media (max-width: 768px){
-                        transform: translateY(-160%) translateX(-70%) scale(2,-1);
+                        transform: translateY(0vh) translateX(0%) scale(1,-1);
                     }
                 }
             }
@@ -272,86 +268,117 @@ div#player {
         &.tenthEffect{
             width:100%!important;
             #canvas9{
-                transform: translateY(-440%) scale(0,0);
+                transform: translateY(0vh) scale(0,0);
                 &.eleventhEffect{
-                    transition: all 3000ms ease-in;
-                    transform: translateY(-440%) scale(1,1);
+                    transform: translateY(-25vh) scale(1,1);
                 }
                 @media (max-width: 768px){
-                    transform: translateY(-440%) scale(1,1);
+                    transform: translateY(-25vh) scale(1,1);
                 }
                 &.fifteenthEffect{
-                    transform: translateY(-620%) scale(1,1);
+                    transition: all 3000ms ease-in;
+                    transform: translateY(0vw) scale(1,1);
                     @media (max-width: 768px){
-                        transform: translateY(-440%) translateX(-70%) scale(2,1);
+                        transform: translateY(0vw) translateX(0%) scale(1,1);
                     }
                 }
                 &.seventeenthEffect{
-                    transform: skewY(-45deg) translateY(-620%) scale(1,1);
+                    transform: skewY(-45deg) translateY(0vw) scale(1,1);
                     @media (max-width: 768px){
-                        transform: skewY(-45deg) translateY(-440%) translateX(-70%) scale(2,1);
+                        transform: skewY(-45deg) translateY(0vw) translateX(0%) scale(1,1);
                     }
                 }
             }
             #canvas10{
-                transform: translateY(-440%) scale(0,0);
+                transform: translateY(0vh) scale(0,0);
                 &.eleventhEffect{
-                    transition: all 3000ms ease-in;
-                    transform: translateY(-440%) scale(1,-1);
+                    
+                    transform: translateY(-25vh) scale(1,-1);
                 }
                 @media (max-width: 768px){
-                    transform: translateY(-440%) scale(1,-1);
+                    transform: translateY(-25vh) scale(1,-1);
                 }
                 &.fifteenthEffect{
-                    transform: translateY(-620%) scale(1,-1);
+                    transition: all 3000ms ease-in;
+                    transform: translateY(0vw) scale(1,-1);
                     @media (max-width: 768px){
-                        transform: translateY(-440%) translateX(-70%) scale(2,-1);
+                        transform: translateY(0vw) translateX(0%) scale(1,-1);
                     }
                 }
                 &.seventeenthEffect{
-                    transform: skewY(-45deg) translateY(-620%) scale(1,-1);
+                    transform: skewY(-45deg) translateY(0vw) scale(1,-1);
                     @media (max-width: 768px){
-                        transform: skewY(-45deg) translateY(-440%) translateX(-70%) scale(2,-1);
+                        transform: skewY(-45deg) translateY(0vw) translateX(0%) scale(1,-1);
                     }
                 }
             }
         }
+        &.twelfthEffect{
+            height:auto;
+        }
         &.eighteenthEffect{
-            width:100%!important;
-            transition: all 3000ms ease-in;
+            width:100vw;
+            //transition: all 3000ms ease-in;
+            position: absolute;
+            left: 0%;
+            @media (max-width: 768px){
+                left: 0%;
+                top: 100%;
+            }
+
             #canvas11{
+                transform-origin: center center;
+                transform: skewY(-45deg) translateY(0vw) translateX(0%) scale(1,1);
                 &.nineteenthEffect{
-                    transform: skewY(-45deg) translateY(-220%) scale(1,1);
+                    transform: skewY(-45deg) translateY(0vw) translateX(0%) scale(1,1);
                     @media (max-width: 768px){
-                        transform: skewY(45deg) translateY(-420%) translateX(-70%) scale(2,1);
+                        transform: skewY(45deg) translateY(0vw) translateX(0%) scale(1,1);
                     }
                 }
             }
             #canvas12{
+                transform: skewY(-45deg) translateY(0vw) scale(1,-1);
+                transform-origin: center center;
                 &.nineteenthEffect{
-                    transform: skewY(-45deg) translateY(-220%) scale(1,-1);
+                    transform: skewY(-45deg) translateY(0vw) scale(1,-1);
                     @media (max-width: 768px){
-                        transform: skewY(45deg) translateY(-420%) translateX(-70%) scale(2,-1);
+                        transform: skewY(45deg) translateY(0vw) translateX(0%) scale(1,-1);
                     }
                 }
             }
         }
         &.twentieth{
-            width:100%!important;
-            transition: all 3000ms ease-in;
+            width:100vw;
+            //transition: all 3000ms ease-in;
+            position: absolute;
+            left: 0%;
+            @media (max-width: 768px){
+                left: 0%;
+                top: 0%;
+            }
             #canvas13{
+                transform-origin: center center;
+                transform: skewY(45deg) translateY(0) translateX(0%) scale(1,1);
+                @media (max-width: 768px){
+                    transform: skewY(-45deg) translateY(0) translateX(0%) scale(1,1);
+                }
                 &.twentyfirstEffect{
-                    transform: skewY(45deg) translateY(-1320%) scale(1,1);
+                    transform: skewY(45deg) translateY(0) translateX(0%) scale(1,1);
                     @media (max-width: 768px){
-                        transform: skewY(-45deg) translateY(-1040%) translateX(-70%) scale(2,1);
+                        transform: skewY(-45deg) translateY(0) translateX(0%) scale(1,1);
                     }
                 }
             }
             #canvas14{
+                transform: skewY(45deg) translateY(0) translateX(0%) scale(1,-1);
+                @media (max-width: 768px){
+                    transform: skewY(-45deg) translateY(0) translateX(0%) scale(1,-1);
+                }
+                transform-origin: center center;
                 &.twentyfirstEffect{
-                    transform: skewY(45deg) translateY(-1320%) scale(1,-1);
+                    transform: skewY(45deg) translateY(0) translateX(0%) scale(1,-1);
                     @media (max-width: 768px){
-                        transform: skewY(-45deg) translateY(-1040%) translateX(-70%) scale(2,-1);
+                        transform: skewY(-45deg) translateY(0) translateX(0%) scale(1,-1);
                     }
                 }
             }
@@ -372,5 +399,15 @@ div#player {
             width:0%;
             height:4px;
         }
+    }
+}
+
+
+#test{
+    background-color: #000;
+    width:100%;
+    height:100%;
+    #canvas{
+        background-color:#000;
     }
 }

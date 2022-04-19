@@ -1,8 +1,12 @@
+import './vendors-css/animate.min.css';
 import './style.scss';
 
+//import './vendors-js/createjs.min.js'
+
 ( () => {
-let canvas,canvas2, firstCanvas, secondCanvas,
-    ctx, ctx2, ctx3, ctx4, ctx5, ctx6, ctx7, ctx8, ctx9, ctx10, ctx11, ctx12, ctx13, ctx14, ctx15,
+let canvas,canvas2, firstCanvas, secondCanvas, canvasId,
+    ctx, ctx2,/*  ctx3, ctx4, */ ctx5, ctx6, ctx7, ctx8, ctx9, ctx10, ctx11, ctx12, ctx13, ctx14, ctx15, ctx16,
+    strokeStyle,
     source,
     context,
     analyser,
@@ -100,21 +104,46 @@ let FrameLooper = () => {
     
     fbc_array = new Uint8Array(analyser.frequencyBinCount);
     analyser.getByteFrequencyData(fbc_array);
+    //console.log(audio.currentTime);
+
+    if(audio.currentTime >= 2 && audio.currentTime < 3 ){
+        firstEffect();
+    }
     if(audio.currentTime < 8){
         modifySampleEqualizerCanvas(ctx, ctx2, 'canvas', 'canvas2', 0.3, "#ffffff", "#ffffff", 8, 16, 4, 2 )
+    }
+    if(audio.currentTime >= 6 && audio.currentTime < 7 ){
+        postFirstEffect();
     }
     if(audio.currentTime >= 7 && audio.currentTime < 18){
         modifySampleEqualizerCanvas(ctx, ctx2, 'canvas', 'canvas2', 0.3, "#ffffff", "#ffffff", 16, 32, 8, 1.5 )
     }
+    if(audio.currentTime >= 7 && audio.currentTime < 8 ){
+        preSecondEffect();
+    }
+    if(audio.currentTime > 12 && audio.currentTime < 13){
+        document.getElementById('sep-line').classList.add("blue");
+    }
+    if(audio.currentTime >= 17 && audio.currentTime < 18 ){
+        postSecondEffect();
+    }
     if(audio.currentTime >= 18 && audio.currentTime <= 42){
         modifySampleEqualizerCanvas(ctx, ctx2, 'canvas', 'canvas2', 0.3, "#ffffff", "#ffffff", 8, 16, 4, 2)
+    }
+    if(audio.currentTime >= 18 && audio.currentTime < 19 ){
+        preThirdEffect();
+    }
+    if(audio.currentTime > 22 && audio.currentTime < 23){
+        fourthEffect();
+    }
+    if(audio.currentTime >= 23 && audio.currentTime < 25){
+        fifthEffect();
     }
     if(audio.currentTime >= 26 && audio.currentTime <= 44){
         document.getElementById('couple-container-one').classList.add("withHalf");
         if(document.getElementById('sep-line') != null){
             document.getElementById('sep-line').remove();
         }
-        modifySampleEqualizerCanvas(ctx3, ctx4, 'canvas3', 'canvas4', 0.3, "#ffffff", "#ffffff", 8, 16, 4, 2)
     }
     if(audio.currentTime >= 34 && audio.currentTime <= 46){
         document.getElementById('couple-container-three').classList.add("seventhEffect");
@@ -127,15 +156,42 @@ let FrameLooper = () => {
     if(audio.currentTime > 42 && audio.currentTime < 92){
         modifySampleEqualizerCanvas(ctx, ctx2, 'canvas', 'canvas2', 0.3, "#0b73c5", "#0b73c5", 8, 16, 4, 2)
     }
-    if(audio.currentTime > 44 && audio.currentTime < 92){
-        modifySampleEqualizerCanvas(ctx3, ctx4, 'canvas3', 'canvas4', 0.3, "#c9d547", "#c9d547", 8, 16, 4, 2)
-    }
     if(audio.currentTime >= 46 && audio.currentTime < 92){
         modifySampleEqualizerCanvas(ctx5, ctx6, 'canvas5', 'canvas6', 1,  "#fe0000", "#fe0000",2, 8, 4, 4)
+    }
+    if(audio.currentTime >= 48 && audio.currentTime < 49){
+        ninthEffect();
     }
     if(audio.currentTime >= 52 && audio.currentTime < 92){
         document.getElementById('couple-container-five').classList.add("tenthEffect");
         modifySampleEqualizerCanvas(ctx9, ctx10, 'canvas9', 'canvas10', 1, "#ffeb00", "#ffeb00",2, 8, 4, 4)
+    }
+    if(audio.currentTime >52 && audio.currentTime < 53){
+        eleventhEffect();
+    }
+    if(audio.currentTime > 55 && audio.currentTime < 56){
+        twelfthEffect();
+    }
+    if(audio.currentTime > 59 && audio.currentTime < 61){
+        thirteenthEffect();
+    }
+    if(audio.currentTime > 63 && audio.currentTime < 65){
+        fourteenthEffect();
+    }
+    if(audio.currentTime > 67 && audio.currentTime < 69){
+        fifteenthEffect();
+    }
+    if(audio.currentTime > 71 && audio.currentTime < 73){
+        sixteenthEffect();
+    }
+    if(audio.currentTime > 75 && audio.currentTime < 77){
+        seventeenthEffect();
+    }
+    if(audio.currentTime > 79 && audio.currentTime < 81){
+        nineteenthEffect();
+    }
+    if(audio.currentTime > 86 && audio.currentTime < 88){
+        twentyfirstEffect();
     }
     if(audio.currentTime >= 80 && audio.currentTime < 92){
         document.getElementById('couple-container-six').classList.add("eighteenthEffect");
@@ -144,6 +200,32 @@ let FrameLooper = () => {
     if(audio.currentTime >= 84 && audio.currentTime < 92){
         document.getElementById('couple-container-seven').classList.add("twentieth");
         modifySampleEqualizerCanvas(ctx13, ctx14, 'canvas13', 'canvas14', 1, "#eb00ff", "#eb00ff",2, 8, 4, 4)
+    }
+    if(audio.currentTime > 92 && audio.currentTime < 93){
+        twentysecondEffect();
+    }
+    if(audio.currentTime >= 94 && audio.currentTime < 95){
+        twentythirdEffect('ctx15','canvas15', '#fff')
+    }
+    if(audio.currentTime >= 95 && audio.currentTime < 96){
+        document.getElementById('grid').classList.add('gridAppearance')
+        //document.getElementById('canvas15').classList.add('gridAppearance')
+    }
+    if(audio.currentTime >= 99 && audio.currentTime < 100){
+        document.getElementById('grid').classList.remove('gridAppearance')
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+     
+    }
+    if(audio.currentTime >= 103 && audio.currentTime < 104){
+        document.getElementById('grid').classList.add('colorGraphPaper')
+        document.getElementById('grid').classList.add('gridAppearance')
+        twentythirdEffect('ctx15','canvas15', '#cdb793')
+    }
+    if(audio.currentTime >= 107){
+        if(document.getElementById('canvas16') == null){
+        createCanvas('grid', 'canvas16');
+        }
+        twentyfourthEffect(ctx16, 'canvas16')
     }
 }
 
@@ -177,9 +259,6 @@ let modifySampleEqualizerCanvas = (firstCtx, secondCtx, firstCanvasId, secondCan
     firstCtx = firstCanvas.getContext("2d");
     secondCtx = secondCanvas.getContext("2d");
 
-    firstCanvas.height = window.innerHeight * 0.30;
-    secondCanvas.height = window.innerHeight * 0.30;
-
     firstCtx.clearRect(0, 0, firstCanvas.width, firstCanvas.height);
     secondCtx.clearRect(0, 0, secondCanvas.width, secondCanvas.height);
         firstCtx.fillStyle = color1;
@@ -212,28 +291,26 @@ let createCanvas = (container, idCanvas) => {
     canv.id = idCanvas;
     document.body.appendChild(canv); // adds the canvas to the body element
     document.getElementById(container).appendChild(canv); // adds the canvas to #someBox
-    document.getElementById(canv.id ).classList.add("canvas");
+    document.getElementById(canv.id).classList.add("canvas");
+}
+
+let createCanvasFirstElement = (container, idCanvas) => {
+    var canv = document.createElement('canvas');
+    canv.id = idCanvas;
+    document.body.appendChild(canv); // adds the canvas to the body element
+    document.getElementById(container).prepend(canv); // adds the canvas to #someBox
+    document.getElementById(canv.id).classList.add("canvas");
 }
 
 let fourthEffect = () => {
-    
-    document.getElementById('couple-container-two').classList.add("translateforsixthEffect");
     document.getElementById('canvas').classList.add("reduceforsixthEffect");
     document.getElementById('canvas2').classList.add("reduceforsixthEffect");
-    
 }
 let fifthEffect = () => {
     
     document.getElementById('canvas').classList.add("translateforsixthEffect");
     document.getElementById('canvas2').classList.add("translateforsixthEffect");
-    
 }
-
-let sixthEffect = () => {
-    document.getElementById('canvas3').classList.add("sixthEffect");
-    document.getElementById('canvas4').classList.add("sixthEffect");
-}
-
 let ninthEffect = () => {
     document.getElementById('canvas7').classList.add("ninthEffect");
     document.getElementById('canvas8').classList.add("ninthEffect");
@@ -246,14 +323,11 @@ let eleventhEffect = () => {
 
 let twelfthEffect = () => {
     document.getElementById('wave-container').classList.add("twelfthEffect");
-    //audio.pause();
 }
 
 let thirteenthEffect = () => {
     document.getElementById('canvas').classList.add("thirteenthEffect");
     document.getElementById('canvas2').classList.add("thirteenthEffect");
-    document.getElementById('canvas3').classList.add("thirteenthEffect");
-    document.getElementById('canvas4').classList.add("thirteenthEffect");
     document.getElementById('wave-container').classList.add("thirteenthEffect");
     
 }
@@ -292,12 +366,8 @@ let twentyfirstEffect = () => {
 let twentysecondEffect = () => {
     if(document.getElementById('canvas') != null)
     document.getElementById('canvas').remove();
-    if(document.getElementById('canva2') != null)
+    if(document.getElementById('canvas2') != null)
     document.getElementById('canvas2').remove();
-    if(document.getElementById('canvas3') != null)
-    document.getElementById('canvas3').remove();
-    if(document.getElementById('canvas4') != null)
-    document.getElementById('canvas4').remove();
     if(document.getElementById('canvas5') != null)
     document.getElementById('canvas5').remove();
     if(document.getElementById('canvas6') != null)
@@ -314,41 +384,117 @@ let twentysecondEffect = () => {
     document.getElementById('canvas13').remove();
     if(document.getElementById('canvas14') != null)
     document.getElementById('canvas14').remove();
+    if(document.getElementById('couple-container-one')){
+        document.getElementById('couple-container-one').remove();
+    }
+    if(document.getElementById('couple-container-three')){
+        document.getElementById('couple-container-three').remove();
+    }
+    if(document.getElementById('couple-container-five')){
+        document.getElementById('couple-container-five').remove();
+    }
+    if(document.getElementById('couple-container-six')){
+        document.getElementById('couple-container-six').remove();
+    }
+    if(document.getElementById('couple-container-seven')){
+        document.getElementById('couple-container-seven').remove();
+    }
     document.getElementById('wave-container').classList.add("twentysecondEffect");
 }
 
-let twentythirdEffect = () => {
-    if(document.getElementById('canvas15') == null)
-    createCanvas('grid', 'canvas15');
-    let canvas15;
-    canvas15 = document.getElementById("canvas15");
-    canvas15.width = window.innerWidth;
-    canvas15.height = window.innerHeight;
-    canvas15 = document.getElementById("canvas15");
-    ctx15 = canvas.getContext("2d");
+let twentythirdEffect = (ctx, canvasId, strokeStyle) => {
+    canvas = document.getElementById(canvasId);
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+    ctx = canvas.getContext("2d");
     let widthInter = window.innerWidth / 10;
     let heightInter = window.innerHeight / 10;
-    ctx15.strokeStyle="#fff"
-    for (let i = 0 ; i <= 10 ; i++){
-        console.log("widthInter * i ",widthInter * i)
-        console.log("heightInter * i ",heightInter * i)
-        ctx15.beginPath();
-        ctx.moveTo(heightInter * i ,0);
-        ctx15.lineTo(0, canvas15.width);
-        ctx15.stroke();
-        ctx15.closePath();
-        ctx15.beginPath();
-        ctx.moveTo(widthInter * i ,0);
-        ctx15.lineTo(widthInter * i ,canvas15.height);
-        ctx15.stroke();
-        ctx15.closePath();
-    }
+    let heightInterNiv2 = window.innerHeight / 200;
+    let widthInterNiv2 = window.innerWidth / 200;
 
+    canvas.style.background = "transparent"
+    ctx.strokeStyle = strokeStyle
+    for (let i = 0 ; i <= 10 ; i++){
+        ctx.lineWidth = 1
+        ctx.beginPath();
+        ctx.moveTo(widthInter * i ,0);
+        ctx.lineTo(widthInter * i, canvas.height);
+        ctx.stroke();
+        ctx.closePath();
+        ctx.beginPath();
+        ctx.moveTo(0, heightInter * i);
+        ctx.lineTo(canvas.width, heightInter * i);
+        ctx.stroke();
+        ctx.closePath();
+        for (let j = 0 ; j <= 20 ; j++){
+            //console.log(widthInter/10 * i + widthInter/20 * j)
+            ctx.lineWidth = 0.5
+            ctx.lineWidth = j == 10 ? 0.75 : 0.5
+            ctx.beginPath();
+            ctx.moveTo(widthInter * i + widthInterNiv2 * j ,0);
+            ctx.lineTo(widthInter * i + widthInterNiv2 * j, canvas.height);
+            ctx.stroke();
+            ctx.closePath();
+            ctx.beginPath();
+            ctx.moveTo(0, heightInter * i + heightInterNiv2 * j);
+            ctx.lineTo(canvas.width, heightInter * i +  heightInterNiv2 * j);
+            ctx.stroke();
+            ctx.closePath();
+        }
+    }
 }
 
+let twentyfourthEffect = (ctx, canvasId) => {
+    canvas = document.getElementById(canvasId);
+    const padding = 20;
+    const dpr = window.devicePixelRatio || 1;
+    let y = 0
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight + padding * 2;
+
+    ctx = canvas.getContext("2d");
+    ctx.lineWidth = 3;
+    //const width = canvas.width / bar_count;
+    const width = canvas.width / 20;
+    //ctx.scale(dpr, dpr);
+    ctx.translate(0, canvas.offsetHeight / 2);
+    /* for (let i = 0; i < bar_count ; i++) {  */
+    for (let i = 0; i <= 10 ; i++) {
+        const x = width * i;
+        y+=4
+        //console.log("y : ",y)
+        drawLineSegment(ctx, x, y, width, (i + 1) % 2, i)
+    }
+    for (let i = 10 ; i < 20 ; i++) {
+        const x = width + width * i;
+        y-=4
+        //console.log("y : ",y)
+        drawLineSegment(ctx, x, y, width, i % 2, i)
+    }
+    document.getElementById(canvasId).classList.add('appear');
+    document.getElementById(canvasId).style.setProperty('--animate-duration', '2s');
+    document.getElementById(canvasId).classList.add('animate__animated', 'animate__fadeInUpBig')
+}
+
+let drawLineSegment =  (ctx, x, y, width, isEven, i) => {
+    ctx.lineWidth = 2; // how thick the line is
+    ctx.strokeStyle = "#000"; // what color our line is
+    ctx.beginPath();
+    /* console.log("isEven :",isEven) */
+    y = isEven ? y : -y;
+    //ctx.strokeStyle = isEven ? '#000' : '#f00'; 
+    //y = -fbc_array[i]
+    //console.log('y : ',y)
+    ctx.moveTo(x, 0);
+    ctx.lineTo(x, y);
+    ctx.arc(x + width / 2, y, width / 2, Math.PI, 0, isEven);
+    ctx.lineTo(x + width, 0);
+    ctx.stroke();
+    ctx.closePath;
+}
+
+
 generateCanvas();
-createCanvas('couple-container-two', 'canvas3');
-createCanvas('couple-container-two', 'canvas4');
 createCanvas('couple-container-three', 'canvas5');
 createCanvas('couple-container-three', 'canvas6');
 createCanvas('couple-container-four', 'canvas7');
@@ -359,6 +505,7 @@ createCanvas('couple-container-six', 'canvas11');
 createCanvas('couple-container-six', 'canvas12');
 createCanvas('couple-container-seven', 'canvas13');
 createCanvas('couple-container-seven', 'canvas14');
+createCanvas('grid', 'canvas15');
 //generateOscilloscope();
 
 document.getElementById("play").addEventListener(
@@ -371,76 +518,8 @@ document.getElementById("play").addEventListener(
             source.connect(analyser);
             analyser.connect(context.destination);
             audio.play();
+            //audio.currentTime = 92
             FrameLooper();
-            //audio.currentTime = 91
-            intervalId = setInterval(() => {
-                //console.log(audio.currentTime);
-                if(audio.currentTime >= 2 && audio.currentTime < 3 ){
-                    firstEffect();
-                }
-                if(audio.currentTime >= 6 && audio.currentTime < 7 ){
-                    postFirstEffect();
-                }
-                if(audio.currentTime >= 7 && audio.currentTime < 8 ){
-                    preSecondEffect();
-                }
-                else if(audio.currentTime > 12 && audio.currentTime < 13){
-                    document.getElementById('sep-line').classList.add("blue");
-                }
-                if(audio.currentTime >= 17 && audio.currentTime < 18 ){
-                    postSecondEffect();
-                }
-                if(audio.currentTime >= 18 && audio.currentTime < 19 ){
-                    preThirdEffect();
-                }
-                else if(audio.currentTime > 22 && audio.currentTime < 23){
-                    fourthEffect();
-                }
-                else if(audio.currentTime >= 23 && audio.currentTime < 25){
-                    fifthEffect();
-                }
-                else if(audio.currentTime >= 28 && audio.currentTime < 30){
-                    sixthEffect();
-                }
-                else if(audio.currentTime >= 48 && audio.currentTime < 49){
-                    ninthEffect();
-                }
-                else if(audio.currentTime >52 && audio.currentTime < 53){
-                    eleventhEffect();
-                }
-                else if(audio.currentTime > 55 && audio.currentTime < 56){
-                    twelfthEffect();
-                }
-                else if(audio.currentTime > 59 && audio.currentTime < 61){
-                    thirteenthEffect();
-                }
-                else if(audio.currentTime > 63 && audio.currentTime < 65){
-                    fourteenthEffect();
-                }
-                else if(audio.currentTime > 67 && audio.currentTime < 69){
-                    fifteenthEffect();
-                }
-                else if(audio.currentTime > 71 && audio.currentTime < 73){
-                    sixteenthEffect();
-                }
-                else if(audio.currentTime > 75 && audio.currentTime < 77){
-                    seventeenthEffect();
-                }
-                else if(audio.currentTime > 79 && audio.currentTime < 81){
-                    nineteenthEffect();
-                }
-                else if(audio.currentTime > 86 && audio.currentTime < 88){
-                    twentyfirstEffect();
-                }
-                else if(audio.currentTime > 92 && audio.currentTime < 93){
-                    twentysecondEffect();
-                }
-                /* if(audio.currentTime > 96 && audio.currentTime < 98){
-                    twentythirdEffect();
-                } */
-            },200);
-            twentythirdEffect();
-
         }else{
             source.connect(analyser);
             analyser.connect(context.destination);
